@@ -12,7 +12,7 @@
 
         body {
             font-family: 'Pretendard', sans-serif;
-            background-color: #f0f0f0;
+            background: linear-gradient(to bottom, #f9f6f1, #eaeaea);
             margin: 0;
             padding: 0;
         }
@@ -25,74 +25,83 @@
 
         .title {
             padding-top: 20px;
-            font-size: 24px;
-            color: #000;
+            font-size: 28px;
+            color: #4a3f35;
             text-align: center;
             font-weight: 700;
         }
 
         .separator {
             width: 60%;
-            border-top: 2px solid #d4b19d;
+            border-top: 3px solid #b59a7d;
             margin: 10px auto;
         }
 
         .episode {
             text-align: center;
             font-size: 18px;
-            color: #000;
+            color: #4a3f35;
+            margin-bottom: 20px;
         }
 
         .card {
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
             padding: 20px;
-            background-color: #fff;
+            background-color: #ffffff;
             max-width: 90%;
             margin: 20px auto;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-family: 'Pretendard', sans-serif;
-            position: relative;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
         }
 
         .card h2 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            color: #4a3f35;
         }
 
         .card .content {
             font-size: 16px;
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 15px;
+            color: #6c5d4c;
         }
 
         .image-container img {
             max-width: 100%;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 15px;
         }
 
         .input-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
             margin: 20px auto;
             max-width: 90%;
             padding: 20px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .input-container textarea {
             width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            height: 120px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             font-family: 'Pretendard', sans-serif;
             font-size: 16px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .input-container input[type="file"] {
@@ -101,18 +110,19 @@
         }
 
         .input-container button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 16px;
-            color: #fff;
-            background-color: #d4b19d;
+            color: #ffffff;
+            background-color: #b59a7d;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         .input-container button:hover {
-            background-color: #b59a7d;
+            background-color: #a0846c;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -123,11 +133,10 @@
         <div class="episode">{{ username }}의 에피소드</div>
 
         <div class="input-container">
-            <textarea placeholder="내용을 입력하세요..."></textarea>
+            <textarea placeholder="내용을 입력하세요..." width="200px"></textarea>
             <input type="file" accept="image/*">
             <button>글 작성</button>
         </div>
-
     </div>
 </body>
 </html>
