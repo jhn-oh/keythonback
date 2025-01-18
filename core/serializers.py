@@ -1,5 +1,10 @@
 from rest_framework import serializers
-from .models import Islands, SubGoals, Articles
+from .models import Islands, SubGoals, Articles, Users
+
+class UsersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        fields = ['id', 'username']
 
 class IslandSerializer(serializers.ModelSerializer):
     class Meta:

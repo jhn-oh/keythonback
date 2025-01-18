@@ -1,42 +1,28 @@
+from django.shortcuts import render
+
+# Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Users, Islands, SubGoals, Articles
-from .serializers import UsersSerializer, IslandSerializer, SubGoalSerializer, ArticleSerializer
+from .models import Islands, SubGoals, Articles
+from .serializers import IslandSerializer, SubGoalSerializer, ArticleSerializer
 
-# 사용자 API
-class UserListView(APIView):
-    """
-    API to list all users and create a new user.
-    """
+# 1. 섬 관련 API
+class IslandListView(APIView):
     def get(self, request):
-        users = Users.objects.all()
-        serializer = UsersSerializer(users, many=True)
+        islands = Islands.objects.all()
+        serializer = IslandSerializer(islands, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = UsersSerializer(data=request.data)
+        serializer = IslandSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# 섬 API
-class IslandListView(APIView):
-    """
-    API to list all islands.
-    """
-    def get(self, request):
-        islands = Islands.objects.all()
-        serializer = IslandSerializer(islands, many=True)
-        return Response(serializer.data)
-
-
 class IslandDetailView(APIView):
-    """
-    API to retrieve and update a specific island.
-    """
     def get(self, request, pk):
         try:
             island = Islands.objects.get(pk=pk)
@@ -56,12 +42,17 @@ class IslandDetailView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self, request, pk):
+        try:
+            island = Islands.objects.get(pk=pk)
+        except Islands.DoesNotExist:
+            return Response({"error": "Island not found"}, status=status.HTTP_404_NOT_FOUND)
+        island.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-# 소목표 API
+
+# 2. 소목표 관련 API
 class SubGoalListView(APIView):
-    """
-    API to list all subgoals for a specific island.
-    """
     def get(self, request, island_id):
         try:
             subgoals = SubGoals.objects.filter(island_id=island_id)
@@ -71,25 +62,29 @@ class SubGoalListView(APIView):
         return Response(serializer.data)
 
 
-class SubGoalStatusUpdateView(APIView):
-    """
-    API to update the completion status of a specific subgoal.
-    """
+class SubGoalDetailView(APIView):
+    def get(self, request, pk):
+        try:
+            subgoal = SubGoals.objects.get(pk=pk)
+        except SubGoals.DoesNotExist:
+            return Response({"error": "SubGoal not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = SubGoalSerializer(subgoal)
+        return Response(serializer.data)
+
     def put(self, request, pk):
         try:
             subgoal = SubGoals.objects.get(pk=pk)
         except SubGoals.DoesNotExist:
             return Response({"error": "SubGoal not found"}, status=status.HTTP_404_NOT_FOUND)
-        subgoal.is_completed = request.data.get("is_completed", subgoal.is_completed)
-        subgoal.save()
-        return Response({"message": "SubGoal status updated successfully"})
+        serializer = SubGoalSerializer(subgoal, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# 인증 글 API
+# 3. 인증 글 관련 API
 class ArticleListView(APIView):
-    """
-    API to list all articles for a specific subgoal.
-    """
     def get(self, request, subgoal_id):
         try:
             articles = Articles.objects.filter(subgoal_id=subgoal_id)
