@@ -5,7 +5,7 @@ from .models import Users, Islands, SubGoals, Articles
 from .serializers import UsersSerializer, IslandSerializer, SubGoalSerializer, ArticleSerializer
 from django.conf import settings
 from django.http import FileResponse, Http404
-
+import os
 
 # 사용자 API
 class UserListView(APIView):
@@ -126,3 +126,11 @@ class ServeArticleImageView(APIView):
         if os.path.exists(file_path):
             return FileResponse(open(file_path, 'rb'), content_type='image/png')
         raise Http404("Image not found")
+    
+
+
+# HTML RENDERING
+from django.shortcuts import render
+from django.http import HttpResponse
+def welcome_view(request):
+    return render(request, 'welcome.html')

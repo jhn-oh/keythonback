@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>welcome</title>
+        <!-- CSS 파일 로드 -->
+        <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    </head>
+    <body>
+        <div class="content">
+            <h2>나는 해적왕이 될 거야!<br>OOO은 무엇이 되고 싶니?</h2>
+            <!-- 이미지 로드 -->
+            <img class="ship" src="{% static 'images/ship.png' %}">
+            <input id="write" type="text">
+            <input id="enter" type="button" value="확인">
+        </div>
+    </body>
+</html>

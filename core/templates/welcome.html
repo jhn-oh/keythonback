@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <style>
+            /* style1.css의 스타일 조정 */
+            body {
+                max-width: 393px;
+                max-height: 852px;
+                margin: auto;
+                background-color: #FFF;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            h2 {
+                border-width: 299px;
+                border-height: 46px;
+                flex-shrink: 0;
+                color: black;
+                text-align: center;
+                font-family: Arial, sans-serif;
+                font-size: 19px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                margin-top: 157px;
+                margin-bottom: 0px;
+            }
+
+            .ship {
+                width: 187px;
+                height: 187px;
+                flex-shrink: 0;
+            }
+
+            #write {
+                width: 209px;
+                height: 39px;
+                flex-shrink: 0;
+                border-radius: 67px;
+                border: 1px solid #E9E9E9;
+                background: #FFF;
+                font-size: 19px;
+                text-align: center;
+                margin: 20px 10px 0;
+            }
+
+            #enter {
+                width: 81px;
+                height: 39px;
+                flex-shrink: 0;
+                border-radius: 67px;
+                background: #CCA26B;
+                color: white;
+                font-size: 19px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                margin: 20px auto 0;
+                border: none;
+                cursor: pointer;
+            }
+
+            #enter:hover {
+                background-color: #b08958;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h2>나는 해적왕이 될 거야!<br>OOO은 무엇이 되고 싶니?</h2>
+            <!-- 이미지 로드 -->
+            <img class="ship" src="{% static 'images/ship.png' %}" alt="Ship">
+            <input id="write" type="text" placeholder="답을 입력하세요">
+            <input id="enter" type="button" value="확인">
+        </div>
+    </body>
+</html>

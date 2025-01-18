@@ -22,8 +22,10 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('core.urls')),  # core 앱의 urls.py로 라우팅
+    path('', include('core.urls')),      # 기본 경로도 core.urls로 라우팅
 ]
 
 # MEDIA 설정 추가
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
