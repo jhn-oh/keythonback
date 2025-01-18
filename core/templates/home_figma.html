@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="home_figma.css">  
+    </head>
+    <style>
+        body{
+    font-family:Arial;
+}
+.background{
+    width:387px; height:1374px; left:2px; position:absolute
+}
+#ship{
+    width:81px; height:81px; left:156px; top:17px; position:absolute; color:white;
+}
+.basic_island{
+    width:74px; height:61px; position:absolute; color:#B2FFDE;
+}
+
+.islands{
+    cursor:pointer; transition:transform 0.5s ease-in-out;
+}
+.islands:hover{
+    transform:scale(1.5);
+}
+
+.island_name{
+    width: 26px; height: 26px; left: 0px; top: 0px; position: absolute; border-radius: 9999px;
+}
+.island_text{
+    left: 9px; top: 7px; position: absolute; text-align: center; color: black; font-size: 10px;
+     font-weight: 700; justify-content:center;
+    white-space: nowrap; display:flex; align-items:center; line-height:1; overflow-wrap: break-all;
+}
+.text{
+    width: 80px; height: 27px; left: -3px; top: -2px; position: absolute; border-radius: 50%; text-align:justify;
+}
+#fourth_text{
+    width: 60px; height: 27px; left: -3px; top: -2px; position: absolute; border-radius: 50%; text-align:justify;
+}
+#fifth_text{
+    width: 68px; height: 27px; left: -3px; top: -2px; position: absolute; border-radius: 50%; text-align:justify;
+}
+#seventh_text{
+    width: 80px; height: 27px; left: -3px; top: -2px; position: absolute; border-radius: 50%; text-align:justify;
+}
+    </style>
+    <body>
+        <div class="wrapper">
+            <div style="width: 393px; height: 1367px; position: relative; background: white">
+                <!--
+                <img class="background" style="top:0px;" src="wave_background.png"/>
+                <img class="background" style="top:680px;" src="wave_background.png"/>
+                -->
+                <img class="background" src="{% static 'images/background/bg_home.png' %}">
+                <!-- <div style="width: 152.44px; height: 900.50px; left: 107px; top: 185px; position: absolute; border: 3px rgba(181.85, 255, 223.30, 0.30) dotted"></div> -->
+                <img id="ship" src="{% static 'images/ship2.png' %}"/>
+                
+                <div>
+                    <img id="island1" class="islands basic_island" style="left: 99px; top: 147px;" src="{% static 'images/islands/island 1-1.png' %}"
+                    onclick="window.location.href='island.html'"/>
+                    <img id="island2" class="islands basic_island" style="left: 121px; top: 301px;" src="{% static 'images/islands/island 2-1.png' %}"/>
+                    <img id="island3" class="islands basic_island" style="left: 222px; top: 440px;" src="{% static 'images/islands/island 3-1.png' %}"/>
+                    <img id="island4" class="islands basic_island" style="left: 173px; top: 619px;" src="{% static 'images/islands/island 4-1.png' %}"/>
+                    <img id="island5" class="islands basic_island" style="left: 136px; top: 841px;" src="{% static 'images/islands/island 5-1.png' %}"/>
+                    <img id="island6" class="islands basic_island" style="left: 76px; top: 1066px;" src="{% static 'images/islands/island 6-1.png' %}"/>
+                    <img id="island7" class="islands" style="width: 63px; height: 83px; left: 284px; top: 239px; position: absolute; color:#FBFF7D;" src="{% static 'images/islands/island 1-2.png' %}" />
+                    <img id="island8" class="islands" style="width: 74px; height: 76px; left: 39px; top: 471px; position: absolute; color:#FBFF7D;" src="{% static 'images/islands/island 2-2.png' %}" />
+                    <img id="island9" class="islands" style="width: 74px; height: 76px; left: 273px; top: 965px; position: absolute; color:#FBFF7D;" src="{% static 'images/islands/island 3-2.png' %}" />
+                    <img id="island10" class="islands" style="width: 74px; height: 76px; left: 279px; top: 734px; position: absolute; color:#FBFF7D;" src="{% static 'images/islands/island 4-2.png' %}" />
+                    
+                    <div style="width: 26px; height: 26px; left: 123px; top: 141px; position: absolute">
+                    <div class="island_name text" id="fourth_text" style="background:#62FFE2;"></div>
+                    <div id="first" class="island_text">자료구조</div></div>
+    
+                    <div style="width: 26px; height: 26px; left: 271px; top: 255px; position: absolute">
+                    <div class="island_name" style="background:white;"></div>
+                    <div class="island_text">0</div></div>
+    
+                    <div style="width: 26px; height: 26px; left: 87px; top: 475px; position: absolute">
+                    <div class="island_name" style="background:white;"></div>
+                    <div class="island_text">0</div></div>
+    
+                    <div style="width: 26px; height: 26px; left: 221px; top: 440px; position: absolute">
+                    <div class="island_name text" id="fifth_text"style="background:white;"></div>
+                    <div class="island_text">컴퓨터구조</div></div>
+                    
+                    <div style="width: 26px; height: 26px; left: 224px; top: 618px; position: absolute">
+                    <div class="island_name text" id="fourth_text" style="background:white;"></div>
+                    <div class="island_text">운영체제</div></div>
+    
+                    <div style="width: 26px; height: 26px; left: 273px; top: 759px; position: absolute">
+                    <div class="island_name" style="background:white;"></div>
+                    <div class="island_text">0</div></div>
+    
+                    <div style="width: 26px; height: 26px; left: 184px; top: 846px; position: absolute">
+                    <div class="island_name text" style="background:white;"></div>
+                    <div class="island_text" id="seventh_text">컴퓨터네트워크</div></div>
+    
+                    <div style="width: 26px; height: 26px; left: 127px; top: 1066px; position: absolute">
+                    <div class="island_name text" id="fourth_text" style="background:white;"></div>
+                    <div class="island_text">인공지능</div></div>
+    
+                    <div style="width: 26px; height: 26px; left: 266px; top: 984px; position: absolute">
+                    <div class="island_name" style="background:white;"></div>
+                    <div class="island_text">0</div></div>
+    
+                    <div style="width: 26px; height: 26px; left: 171px; top: 301px; position: absolute">
+                    <div class="island_name text" id="fourth_text" style="background:#BFFFB6;"></div>
+                    <div class="island_text">알고리즘</div></div>
+    
+                    <img id="island11" class="islands" style="width: 216px; height: 216px; left: 84px; top: 1127px; position: absolute; color:#FFC881" src=<div style="width: 393px; height: 1367px; position: relative; background: white">
+            <!--
+            <img class="background" style="top:0px;" src="wave_background.png"/>
+            <img class="background" style="top:680px;" src="wave_background.png"/>
+            -->
+            <img class="background" src="{% static 'images/background/bg_home.png' %}">
+            <!-- <div style="width: 152.44px; height: 900.50px; left: 107px; top: 185px; position: absolute; border: 3px rgba(181.85, 255, 223.30, 0.30) dotted"></div> -->
+            <img id="ship" src="{% static 'images/ship2.png' %}"/>
+            
+            <div>
+                <img id="island1" class="islands basic_island" style="left: 99px; top: 147px;" src="{% static 'images/islands/island 1-1.png' %}"
+                onclick="window.location.href='island.html'"/>
+                <img id="island2" class="islands basic_island" style="left: 121px; top: 301px;" src="{% static 'images/islands/island 2-1.png' %}"/>
+                <img id="island3" class="islands basic_island" style="left: 222px; top: 440px;" src="{% static 'images/islands/island 3-1.png' %}"/>
+                <img id="island4" class="islands basic_island" style="left: 173px; top: 619px;" src="{% static 'images/islands/island 4-1.png' %}"/>
+                <img id="island5" class="islands basic_island" style="left: 136px; top: 841px;" src="{% static 'images/islands/island 5-1.png' %}"/>
+                <img id="island6" class="islands basic_island" style="left: 76px; top: 1066px;" src="{% static 'images/islands/island 6-1.png' %}"/>
+                <img id="island7" class="islands" style="width: 63px; height: 83px; left: 284px; top: 239px; position: absolute; color:#FBFF7D;" src="{% static 'images/islands/island 1-2.png' %}" />
+                <img id="island8" class="islands" style="width: 74px; height: 76px; left: 39px; top: 471px; position: absolute; color:#FBFF7D;" src="{% static 'images/islands/island 2-2.png' %}" />
+                <img id="island9" class="islands" style="width: 74px; height: 76px; left: 273px; top: 965px; position: absolute; color:#FBFF7D;" src="{% static 'images/islands/island 3-2.png' %}" />
+                <img id="island10" class="islands" style="width: 74px; height: 76px; left: 279px; top: 734px; position: absolute; color:#FBFF7D;" src="{% static 'images/islands/island 4-2.png' %}" />
+                
+                <div style="width: 26px; height: 26px; left: 123px; top: 141px; position: absolute">
+                <div class="island_name text" id="fourth_text" style="background:#62FFE2;"></div>
+                <div id="first" class="island_text">자료구조</div></div>
+
+                <div style="width: 26px; height: 26px; left: 271px; top: 255px; position: absolute">
+                <div class="island_name" style="background:white;"></div>
+                <div class="island_text">0</div></div>
+
+                <div style="width: 26px; height: 26px; left: 87px; top: 475px; position: absolute">
+                <div class="island_name" style="background:white;"></div>
+                <div class="island_text">0</div></div>
+
+                <div style="width: 26px; height: 26px; left: 221px; top: 440px; position: absolute">
+                <div class="island_name text" id="fifth_text"style="background:white;"></div>
+                <div class="island_text">컴퓨터구조</div></div>
+                
+                <div style="width: 26px; height: 26px; left: 224px; top: 618px; position: absolute">
+                <div class="island_name text" id="fourth_text" style="background:white;"></div>
+                <div class="island_text">운영체제</div></div>
+
+                <div style="width: 26px; height: 26px; left: 273px; top: 759px; position: absolute">
+                <div class="island_name" style="background:white;"></div>
+                <div class="island_text">0</div></div>
+
+                <div style="width: 26px; height: 26px; left: 184px; top: 846px; position: absolute">
+                <div class="island_name text" style="background:white;"></div>
+                <div class="island_text" id="seventh_text">컴퓨터네트워크</div></div>
+
+                <div style="width: 26px; height: 26px; left: 127px; top: 1066px; position: absolute">
+                <div class="island_name text" id="fourth_text" style="background:white;"></div>
+                <div class="island_text">인공지능</div></div>
+
+                <div style="width: 26px; height: 26px; left: 266px; top: 984px; position: absolute">
+                <div class="island_name" style="background:white;"></div>
+                <div class="island_text">0</div></div>
+
+                <div style="width: 26px; height: 26px; left: 171px; top: 301px; position: absolute">
+                <div class="island_name text" id="fourth_text" style="background:#BFFFB6;"></div>
+                <div class="island_text">알고리즘</div></div>
+
+                <img id="island11" class="islands" style="width: 216px; height: 216px; left: 84px; top: 1127px; position: absolute; color:#FFC881" src="{% static 'images/final_island.png' %}" />
+                <div style="width: 87px; height: 39px; left: 152px; top: 1292px; position: absolute">
+                <div style="width: 87px; height: 39px; left: 0px; top: 0px; position: absolute; background: linear-gradient(180deg, rgba(234.63, 142.98, 22.97, 0.79) 0%, rgba(255, 159.85, 159.85, 0.79) 100%); border-radius: 67px; backdrop-filter: blur(18.40px)"></div>
+                <div style="width: 87px; left: 0px; top: 8px; position: absolute; text-align: center; color: white; font-size: 19px; font-family: Arial; font-weight: 700; word-wrap: break-word">개발자</div>
+                </div>
+            </div> />
+                    <div style="width: 87px; height: 39px; left: 152px; top: 1292px; position: absolute">
+                    <div style="width: 87px; height: 39px; left: 0px; top: 0px; position: absolute; background: linear-gradient(180deg, rgba(234.63, 142.98, 22.97, 0.79) 0%, rgba(255, 159.85, 159.85, 0.79) 100%); border-radius: 67px; backdrop-filter: blur(18.40px)"></div>
+                    <div style="width: 87px; left: 0px; top: 8px; position: absolute; text-align: center; color: white; font-size: 19px; font-family: Arial; font-weight: 700; word-wrap: break-word">개발자</div>
+                    </div>
+                </div>
+        </div>
+        
+    </body>
+    </head>
+</html>

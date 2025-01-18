@@ -231,7 +231,12 @@ def update_selected_islands(request):
     return redirect('/home')
 
 def home(request):
-    return JsonResponse({'message': 'HOME...'}, status=400)
+    user = Users.objects.get(username="akaraka")
+    dream = user.dream
+    islands = Islands.objects.filter(is_selected=True)
+    return render(request, 'home.html', {"dream": dream, 'islands': islands})
+
+    #return JsonResponse({'message': 'HOME...'}, status=400)
 
 def islandmap(request, island_name):
     island = get_object_or_404(Islands, name=island_name)

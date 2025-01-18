@@ -1,0 +1,40 @@
+body{
+    font-family:Arial;
+}
+.background{
+    width:387px; height:1374px; left:2px; position:absolute
+}
+#ship{
+    width:81px; height:81px; left:156px; top:17px; position:absolute; color:white;
+}
+.basic_island{
+    width:74px; height:61px; position:absolute; color:#B2FFDE;
+}
+
+.islands{
+    cursor:pointer; transition:transform 0.5s ease-in-out;
+}
+.islands:hover{
+    transform:scale(1.5);
+}
+
+.island_name{
+    width: 26px; height: 26px; left: 0px; top: 0px; position: absolute; border-radius: 9999px;
+}
+.island_text{
+    left: 9px; top: 7px; position: absolute; text-align: center; color: black; font-size: 10px;
+    font-family: Arial; font-weight: 700; justify-content:center;
+    white-space: nowrap; display:flex; align-items:center; line-height:1; overflow-wrap: break-all;
+}
+.text{
+    width: 80px; height: 27px; left: -3px; top: -2px; position: absolute; border-radius: 50%; text-align:justify;
+}
+#fourth_text{
+    width: 60px; height: 27px; left: -3px; top: -2px; position: absolute; border-radius: 50%; text-align:justify;
+}
+#fifth_text{
+    width: 68px; height: 27px; left: -3px; top: -2px; position: absolute; border-radius: 50%; text-align:justify;
+}
+#seventh_text{
+    width: 80px; height: 27px; left: -3px; top: -2px; position: absolute; border-radius: 50%; text-align:justify;
+}
