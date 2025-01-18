@@ -1,7 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자료구조 아일랜드</title>
     <style>
@@ -11,15 +13,7 @@
             box-sizing: border-box;
         }
 
-        body {
-            width: 100vw;
-            height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
-            overflow: hidden;
-        }
+        
 
         .phone-container {
             width: 100%;
@@ -82,24 +76,25 @@
 }
 
 .message-top {
-    top: 30%; /* 화면 상단에 위치 */
+    top: 33%; /* 화면 상단에 위치 */
 }
 
 .message-bottom {
-    bottom: 31%; /* 화면 하단에 위치 */
+    bottom: 40%; /* 화면 하단에 위치 */
+    text-align: center;
 }
 
 
     </style>
 </head>
 <body>
-    <div class="wrapper">
+    <div class="wrapper"  onclick="location.href='/home'">
         <!-- 배경 이미지 추가 -->
-        <img id="backgroundImage" src="./images/image 20.png" alt="배경 이미지">
-        <img id="mapImage" src="./images/image 35.png" alt="배경 이미지">
-        <img id="shipImage" src="./images/лодка3 1.png" alt="배 이미지">
-        <div class="message-top">축하합니다</div>
-        <div class="message-bottom">개발자가 되셨습니다.</div>
+        <img id="backgroundImage" src="{% static 'images/image 20.png' %}" alt="배경 이미지">
+        <img id="mapImage" src="{% static 'images/image 35.png' %}" alt="배경 이미지">
+        <img id="shipImage" src="{% static 'images/лодка3 1.png' %}"  alt="배 이미지">
+        <div class="message-top">축하합니다!</div>
+        <div class="message-bottom">{{island_name}}를 정복했습니다</div>
 
     </div>
 </body>

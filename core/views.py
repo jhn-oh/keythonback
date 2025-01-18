@@ -236,3 +236,13 @@ def home(request):
 def islandmap(request, island_name):
     island = get_object_or_404(Islands, name=island_name)
     return render(request, 'islandmap.html', {'island': island.name})
+
+def onepiece(request):
+    user = Users.objects.get(username="akaraka")
+    dream = user.dream
+    return render(request, 'onepiece.html', {'dream': dream})
+
+def congratulations(request, island_name):
+    user = Users.objects.get(username="akaraka")
+    dream = user.dream
+    return render(request, 'congratulations.html', {"dream": dream, 'island_name': island_name})
