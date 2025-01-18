@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Islands</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 393px; /* 모바일 기준 */
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .select-route {
+            margin-bottom: 20px;
+        }
+
+        .select-route label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .dropdown {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E9E9E9;
+            border-radius: 8px;
+            background-color: #FFF;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .route-details {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #E9E9E9;
+            border-radius: 8px;
+            background-color: #FAFAFA;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .islands {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .island-card {
+            position: relative;
+            border: 1px solid #E9E9E9;
+            border-radius: 12px;
+            background-color: #FFF;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .island-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .island-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .island-card .island-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .island-card .island-description {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .island-card.checked::after {
+            content: '✔';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            color: #CCA26B;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>개발자가 되고 싶은 널 위해...</h1>
+        <p class="subtitle">한 아일랜드를 준비했어!</p>
+        <div class="select-route">
+            <label for="route-select">루트</label>
+            <select id="route-select" class="dropdown">
+                <option>개발자 속성 루트</option>
+                <option>프론트엔드 루트</option>
+                <option>백엔드 루트</option>
+            </select>
+        </div>
+        <div class="route-details">
+            <p>• 전체 지점</p>
+            <p>• 자료 구조</p>
+            <p>• 컴퓨터 네트워크</p>
+            <p>• 운영체제</p>
+        </div>
+        <h2>아일랜드</h2>
+        <div class="islands">
+            <!-- 각 섬은 반복적으로 생성 가능 -->
+            <div class="island-card" onclick="toggleCheck(this)">
+                <img src="{% static 'images/island1.png' %}" alt="Island 1">
+                <p class="island-title">일본어 아일랜드</p>
+                <p class="island-description">개발자에게 필요한 일본어 능력을 키우기</p>
+            </div>
+            <div class="island-card" onclick="toggleCheck(this)">
+                <img src="{% static 'images/island2.png' %}" alt="Island 2">
+                <p class="island-title">프론트엔드 아일랜드</p>
+                <p class="island-description">프론트엔드 기술을 익히는 곳</p>
+            </div>
+            <div class="island-card" onclick="toggleCheck(this)">
+                <img src="{% static 'images/island3.png' %}" alt="Island 3">
+                <p class="island-title">백엔드 아일랜드</p>
+                <p class="island-description">백엔드 기술을 집중적으로 연습하기</p>
+            </div>
+            <div class="island-card" onclick="toggleCheck(this)">
+                <img src="{% static 'images/island4.png' %}" alt="Island 4">
+                <p class="island-title">풀스택 아일랜드</p>
+                <p class="island-description">프론트와 백엔드를 모두 학습하기</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 체크 표시 토글 기능
+        function toggleCheck(card) {
+            card.classList.toggle('checked');
+        }
+    </script>
+</body>
+</html>

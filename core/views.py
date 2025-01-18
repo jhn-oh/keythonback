@@ -25,6 +25,31 @@ class UserListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class UserDreamUpdateView(APIView):
+    """
+    API to update or set the dream for a user.
+    """
+    def post(self, request):
+        username = request.data.get("username")
+        dream = request.data.get("dream")
+
+        if not username or not dream:
+            return Response({"error": "Username and dream are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # 사용자 생성 또는 업데이트
+        user, created = Users.objects.get_or_create(username=username)
+        user.dream = dream
+        user.save()
+
+        return Response(
+            {
+                "message": "Dream updated successfully",
+                "username": user.username,
+                "dream": user.dream,
+            },
+            status=status.HTTP_200_OK,
+        )
+
 # 섬 API
 class IslandListView(APIView):
     """
@@ -132,5 +157,30 @@ class ServeArticleImageView(APIView):
 # HTML RENDERING
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 def welcome_view(request):
     return render(request, 'welcome.html')
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class SaveDreamView(APIView):
+    """
+    View to save the dream submitted via form.
+    """
+    def post(self, request):
+        dream = request.POST.get("dream", "").strip()
+        username = "akaraka"  # 고정된 username
+
+        if not dream:
+            return HttpResponse("꿈을 입력해주세요.", status=400)
+
+        try:
+            user, created = Users.objects.get_or_create(username=username)
+            user.dream = dream
+            user.save()
+            return redirect("/selectislands/")  # 성공 페이지로 리다이렉트
+        except Exception as e:
+            return HttpResponse(f"저장 중 오류 발생: {str(e)}", status=500)

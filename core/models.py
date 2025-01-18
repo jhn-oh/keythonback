@@ -12,7 +12,7 @@ class Islands(models.Model):
 # 사용자 모델
 class Users(models.Model):
     username = models.CharField(max_length=100, unique=True)
-
+    dream = models.TextField(default="개발자")
     def __str__(self):
         return self.username
 

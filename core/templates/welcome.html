@@ -1,83 +1,88 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Welcome</title>
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-        <style>
-            /* style1.css의 스타일 조정 */
-            body {
-                max-width: 393px;
-                max-height: 852px;
-                margin: auto;
-                background-color: #FFF;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-            }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
 
-            h2 {
-                border-width: 299px;
-                border-height: 46px;
-                flex-shrink: 0;
-                color: black;
-                text-align: center;
-                font-family: Arial, sans-serif;
-                font-size: 19px;
-                font-style: normal;
-                font-weight: 700;
-                line-height: normal;
-                margin-top: 157px;
-                margin-bottom: 0px;
-            }
+        /* Pretendard 폰트 적용 */
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
 
-            .ship {
-                width: 187px;
-                height: 187px;
-                flex-shrink: 0;
-            }
+        h2 {
+            color: black;
+            text-align: center;
+            font-size: 25px;
+            font-weight: 700;
+            line-height: normal;
+            margin: 100px 0 20px;
+        }
 
-            #write {
-                width: 209px;
-                height: 39px;
-                flex-shrink: 0;
-                border-radius: 67px;
-                border: 1px solid #E9E9E9;
-                background: #FFF;
-                font-size: 19px;
-                text-align: center;
-                margin: 20px 10px 0;
-            }
+        .ship {
+            width: 187px;
+            height: 187px;
+            margin: 0 auto 30px;
+            display: block;
+        }
 
-            #enter {
-                width: 81px;
-                height: 39px;
-                flex-shrink: 0;
-                border-radius: 67px;
-                background: #CCA26B;
-                color: white;
-                font-size: 19px;
-                font-style: normal;
-                font-weight: 700;
-                line-height: normal;
-                margin: 20px auto 0;
-                border: none;
-                cursor: pointer;
-            }
+        .input-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* 입력 필드와 버튼 간 간격 */
+            margin-top: 20px;
+        }
 
-            #enter:hover {
-                background-color: #b08958;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="wrapper">
-            <h2>나는 해적왕이 될 거야!<br>OOO은 무엇이 되고 싶니?</h2>
-            <!-- 이미지 로드 -->
-            <img class="ship" src="{% static 'images/ship.png' %}" alt="Ship">
-            <input id="write" type="text" placeholder="답을 입력하세요">
-            <input id="enter" type="button" value="확인">
+        #write {
+            width: 200px; /* 너비 줄이기 */
+            height: 36px; /* 높이 줄이기 */
+            border-radius: 67px;
+            border: 1px solid #E9E9E9;
+            background: #FFF;
+            font-size: 18px; /* 폰트 크기 줄이기 */
+            text-align: center; /* 입력 텍스트 중앙 정렬 */
+            padding: 0 10px;
+            box-sizing: border-box; /* 내부 패딩 포함 */
+        }
+
+        #enter {
+            width: 200px; /* 너비 줄이기 */
+            height: 36px; /* 높이 줄이기 */
+            border-radius: 67px;
+            background: #CCA26B;
+            color: white;
+            font-size: 14px; /* 폰트 크기 줄이기 */
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            text-align: center  /* 입력 텍스트 중앙 정렬 */;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #enter:hover {
+            background-color: #b08958;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h2>나는 해적왕이 될 거야!<br>너는 무엇이 되고 싶니?</h2>
+        <img class="ship" src="{% static 'images/ship.png' %}" alt="Ship">
+        <div class="input-group">
+            <!-- 데이터를 제출할 form -->
+            <form action="/save_dream/" method="post">
+                {% csrf_token %}
+                <input id="write" name="dream" type="text" placeholder="답을 입력하세요" required>
+                <button id="enter" type="submit">확인</button>
+            </form>
         </div>
-    </body>
+    </div>
+</body>
 </html>

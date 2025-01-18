@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import IslandListView, IslandDetailView, SubGoalListView, ArticleListView, ServeArticleImageView
+from .views import *
+# #IslandListView, IslandDetailView, SubGoalListView, ArticleListView, ServeArticleImageView, UserDreamUpdateView
+
 from . import views
 
 urlpatterns = [
@@ -14,5 +16,7 @@ urlpatterns = [
     # Articles
     path('subgoals/<int:subgoal_id>/articles/', ArticleListView.as_view(), name='article-list'),
     path('articles/<str:filename>/', ServeArticleImageView.as_view(), name='serve_article_image'),
-    path('welcome', views.welcome_view, name='welcome')
+    path('welcome', views.welcome_view, name='welcome'),
+    path("api/update_dream/", UserDreamUpdateView.as_view(), name="update_dream"),
+    path('save_dream/', SaveDreamView.as_view(), name='save_dream'),
 ]
