@@ -14,7 +14,9 @@
             flex-direction: column;
             align-items: center; /* 버튼 중앙 정렬 */
         }
-
+        a {
+            text-decoration: none;
+            }
         .card {
             width: 90%; /* 모든 버튼 너비 통일 */
             max-width: 320px;
@@ -27,6 +29,7 @@
             color: #333;
             transition: transform 0.2s, box-shadow 0.2s;
             backdrop-filter: blur(10px); /* Blur 효과 추가 */
+            cursor: pointer; /* 클릭 가능하게 설정 */
         }
 
         .card:hover {
@@ -38,7 +41,7 @@
             font-size: 18px;
             font-weight: 600;
             margin: 0;
-            color: #444;
+            color: #232323;
         }
 
         .card p {
@@ -85,10 +88,10 @@
         </header>
         <div class="container">
             {% for episode in episodes %}
-                <div class="card">
+                <a href="/{{ island}}/{{ episode}}/articles" class="card">
                     <h2>{{ episode.name }}</h2>
                     <p>{{ episode.description }}</p>
-                </div>
+                </a>
             {% empty %}
                 <p>등록된 에피소드가 없습니다.</p>
             {% endfor %}

@@ -201,5 +201,6 @@ def select_episodes_view(request, island_name):
     # 템플릿으로 데이터 전달
     return render(request, 'select_episodes.html', {
         'username': username,
+        'island': island,
         'episodes': episodes
     })

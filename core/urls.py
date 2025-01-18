@@ -22,4 +22,5 @@ urlpatterns = [
     path('save_dream/', SaveDreamView.as_view(), name='save_dream'),
     path('selectislands/', views.select_islands_view, name='select_islands'),
     path('<str:island_name>/select_episodes/', views.select_episodes_view, name='select_episodes'),
+    # path('<str:island_name>/select_episodes/', views.select_episodes_view, name='select_episodes'), <a href="/{{ island}}/{{ episode}}/articles" class="card"> 형식으로...
 ]

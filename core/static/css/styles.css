@@ -11,6 +11,10 @@ body {
     height: 100vh;
 }
 
+a {
+    text-decoration: none;
+  }
+
 .wrapper {
     width: 100%;
     max-width: 393px; /* 모바일 기준 */
