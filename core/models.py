@@ -1,6 +1,9 @@
 from django.db import models
 
 # 섬 모델
+class Userdata(models.Model):
+    islands = 
+
 class Islands(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
