@@ -21,4 +21,5 @@ urlpatterns = [
     path("api/update_dream/", UserDreamUpdateView.as_view(), name="update_dream"),
     path('save_dream/', SaveDreamView.as_view(), name='save_dream'),
     path('selectislands/', views.select_islands_view, name='select_islands'),
+    path('<str:island_name>/select_episodes/', views.select_episodes_view, name='select_episodes'),
 ]

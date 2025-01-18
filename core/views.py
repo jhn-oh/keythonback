@@ -155,7 +155,7 @@ class ServeArticleImageView(APIView):
 
 
 # HTML RENDERING
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -189,3 +189,17 @@ class SaveDreamView(APIView):
             return redirect("/selectislands/")  # 성공 페이지로 리다이렉트
         except Exception as e:
             return HttpResponse(f"저장 중 오류 발생: {str(e)}", status=500)
+
+def select_episodes_view(request, island_name):
+    user = Users.objects.get(username="akaraka")
+    username = user.username
+    # 섬 이름으로 해당 섬 객체를 찾음
+    island = get_object_or_404(Islands, name=island_name)
+    # 완료되지 않은 소목표만 가져옴
+    episodes = island.subgoals.filter(is_completed=False)
+    
+    # 템플릿으로 데이터 전달
+    return render(request, 'select_episodes.html', {
+        'username': username,
+        'episodes': episodes
+    })
