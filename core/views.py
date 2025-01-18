@@ -155,8 +155,8 @@ class ServeArticleImageView(APIView):
 
 
 # HTML RENDERING
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -168,7 +168,8 @@ def welcome_view(request):
 def select_islands_view(request):
     user = Users.objects.get(username="akaraka")
     dream = user.dream
-    return render(request, 'selectislands.html', {"dream": dream})
+    islands = Islands.objects.all()
+    return render(request, 'selectislands.html', {"dream": dream, 'islands': islands})
 
 @method_decorator(csrf_exempt, name='dispatch')
 class SaveDreamView(APIView):
@@ -204,3 +205,30 @@ def select_episodes_view(request, island_name):
         'island': island,
         'episodes': episodes
     })
+
+
+def update_selected_islands(request):
+    """
+    선택된 섬들의 상태를 업데이트하는 뷰.
+    """
+    selected_islands = request.GET.get('selected_islands', '')  # URL에서 선택된 섬 리스트 가져오기
+
+    if not selected_islands:
+        return JsonResponse({'message': 'No islands selected.'}, status=400)
+
+    # 섬 이름들을 리스트로 변환
+    island_names = selected_islands.split(',')
+
+    # 모든 섬의 선택 상태 초기화
+    Islands.objects.update(is_selected=False)
+
+    # 선택된 섬들의 상태 업데이트
+    for name in island_names:
+        island = get_object_or_404(Islands, name=name.strip())
+        island.is_selected = True
+        island.save()
+
+    return redirect('/home')
+
+def home(request):
+    return JsonResponse({'message': 'HOME...'}, status=400)

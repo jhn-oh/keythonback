@@ -1,177 +1,270 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <title>Select Islands</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <title>섬 선택 화면</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
 
-        body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .wrapper {
-            width: 100%;
-            max-width: 393px; /* 모바일 기준 */
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: auto;
-        }
 
         h1 {
-            font-size: 22px;
-            font-weight: 800;
             text-align: center;
-            margin-bottom: 10px;
+            font-size: 25px;
+            margin: 20px 0 30px;
+            font-weight: bold;
+            color: #181818;
         }
 
-        .subtitle {
-            font-size: 16px;
-            font-weight: 400;
-            text-align: center;
+        .selected-island {
             margin-bottom: 20px;
         }
 
-        .select-route {
-            margin-bottom: 20px;
-        }
-
-        .select-route label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .dropdown {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #E9E9E9;
-            border-radius: 8px;
+        .dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background-color: #FFF;
-            font-size: 14px;
-            outline: none;
+            border: 1px solid #818181;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
         }
 
-        .route-details {
-            margin: 20px 0;
-            padding: 10px;
-            border: 1px solid #E9E9E9;
-            border-radius: 8px;
-            background-color: #FAFAFA;
+        .dropdown-header h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #212121;
+        }
+
+        .dropdown-header svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s;
+        }
+
+        .dropdown-header.open svg {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 10px;
+            border: 1px solid #9a9a9a;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            background-color: #FFF9E6;
+        }
+
+        .dropdown-content.open {
+            max-height: 200px;
+        }
+
+        .dropdown-content ul {
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+        }
+
+        .dropdown-content li {
+            padding: 5px 0;
             font-size: 14px;
-            color: #333;
+            color: #666;
+            border-bottom: 1px solid #EEE;
+        }
+
+        .dropdown-content li:last-child {
+            border-bottom: none;
         }
 
         .islands {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 15px;
         }
 
-        .island-card {
-            position: relative;
-            border: 1px solid #E9E9E9;
-            border-radius: 12px;
+        .island {
             background-color: #FFF;
-            text-align: center;
+            border: 1px solid #DDD;
+            border-radius: 10px;
             padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
-        .island-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+        .island.selected {
+            background-color: #fff0c0;
+            border: 1px solid #ffb41e;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
-        .island-card img {
-            width: 80px;
-            height: 80px;
+        .island img {
+            width: 50%;
+            height: auto;
+            border-radius: 8px;
             margin-bottom: 10px;
         }
 
-        .island-card .island-title {
+
+        .island h2 {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        .island p {
             font-size: 14px;
-            font-weight: 600;
-        }
-
-        .island-card .island-description {
-            font-size: 12px;
             color: #666;
-            margin-top: 5px;
-        }
-
-        .island-card.checked::after {
-            content: '✔';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 18px;
-            color: #CCA26B;
-            font-weight: 700;
+            margin: 0;
         }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <h1>{{dream}}가 되고 싶은 널 위해...</h1>
-        <p class="subtitle">한 아일랜드를 준비했어!</p>
-        <div class="select-route">
-            <label for="route-select">루트</label>
-            <select id="route-select" class="dropdown">
-                <option>개발자 속성 루트</option>
-                <option>프론트엔드 루트</option>
-                <option>백엔드 루트</option>
-            </select>
+        <div class="container">
+            <br><br><br>
+            <h1>{{dream}}가 되고 싶은 널 위해<br>관련 아일랜드를 준비했어!</h1>
+            <div style="text-align: center;">
+                목표를 이루기 위한 아일랜드를 직접 선택해 보세요.
+            </div>
+            <br><br><br>
+            <div id="selected-island" class="selected-island">
+                <!-- <div class="dropdown-header" onclick="toggleDropdown()">
+                    <h3>선택한 섬 정보</h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6" stroke="#666"></path>
+                    </svg>
+                </div>
+                <div class="dropdown-content">
+                    <ul id="selected-island-details"></ul>
+                </div> -->
+            </div>
+    
+            <div class="islands">
+                {% for island in islands %}
+                <div class="island" onclick="selectIsland('{{ island.name }}', '{{ island.description }}')">
+                    <img src="{% static 'images/selectislands' %}{{ forloop.counter|add:'-1'|divisibleby:'2'|add:'1' }}.png" alt="Island" width="30px" height="30px">
+                    <h2>{{ island.name }}</h2>
+                    <p>{{ island.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div style="text-align: center; margin-top: 50px; width: 100%;">
+                <button id="start-button" style="
+                    display: block;
+                    width: 100%;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    background-color: #4CAF50;
+                    color: white;
+                    font-size: 18px;
+                    font-weight: bold;
+                    padding: 15px 30px;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                    transition: background-color 0.3s, transform 0.2s;
+                " 
+                onmouseover="this.style.backgroundColor='#45a049'"
+                onmouseout="this.style.backgroundColor='#4CAF50'"
+                onclick="navigateToStart()">시작하기</button>
+            </div>
         </div>
-        <div class="route-details">
-            <p>• 전체 지점</p>
-            <p>• 자료 구조</p>
-            <p>• 컴퓨터 네트워크</p>
-            <p>• 운영체제</p>
-        </div>
-        <h2>아일랜드</h2>
-        <div class="islands">
-            <!-- 각 섬은 반복적으로 생성 가능 -->
-            <div class="island-card" onclick="toggleCheck(this)">
-                <img src="{% static 'images/island1.png' %}" alt="Island 1">
-                <p class="island-title">일본어 아일랜드</p>
-                <p class="island-description">개발자에게 필요한 일본어 능력을 키우기</p>
-            </div>
-            <div class="island-card" onclick="toggleCheck(this)">
-                <img src="{% static 'images/island2.png' %}" alt="Island 2">
-                <p class="island-title">프론트엔드 아일랜드</p>
-                <p class="island-description">프론트엔드 기술을 익히는 곳</p>
-            </div>
-            <div class="island-card" onclick="toggleCheck(this)">
-                <img src="{% static 'images/island3.png' %}" alt="Island 3">
-                <p class="island-title">백엔드 아일랜드</p>
-                <p class="island-description">백엔드 기술을 집중적으로 연습하기</p>
-            </div>
-            <div class="island-card" onclick="toggleCheck(this)">
-                <img src="{% static 'images/island4.png' %}" alt="Island 4">
-                <p class="island-title">풀스택 아일랜드</p>
-                <p class="island-description">프론트와 백엔드를 모두 학습하기</p>
-            </div>
-        </div>
+        
+        <script>
+            // 선택된 섬 목록을 저장할 Set 객체
+            let selectedIslands = new Set();
+        
+            // 선택한 섬 정보를 업데이트하는 함수
+            function updateSelectedIslands(islandElement) {
+                const islandName = islandElement.querySelector('h2').textContent; // 섬 이름 가져오기
+                const islandDescription = islandElement.querySelector('p').textContent; // 섬 설명 가져오기
+        
+                // 선택된 섬이 이미 있다면 선택 해제
+                if (selectedIslands.has(islandName)) {
+                    selectedIslands.delete(islandName);
+                    islandElement.classList.remove('selected');
+                } else {
+                    // 새로 선택된 섬 추가
+                    selectedIslands.add(islandName);
+                    islandElement.classList.add('selected');
+                }
+        
+                // 선택된 섬 정보 갱신
+                updateSelectedIslandDetails();
+            }
+        
+            // 선택된 섬 정보를 화면에 표시
+            function updateSelectedIslandDetails() {
+                const selectedDetails = document.getElementById('selected-island-details');
+                selectedDetails.innerHTML = '';
+        
+                selectedIslands.forEach(island => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<strong>이름:</strong> ${island}`;
+                    selectedDetails.appendChild(listItem);
+                });
+            }
+        
+            // 이벤트 리스너 등록
+            document.addEventListener('DOMContentLoaded', () => {
+                const islands = document.querySelectorAll('.island');
+        
+                islands.forEach(island => {
+                    island.addEventListener('click', function () {
+                        updateSelectedIslands(this);
+                    });
+                });
+            });
+        
+            // 서버에 선택한 섬 정보 보내기
+            function sendSelectedIslandsToServer() {
+                const baseUrl = '/update_selected_islands/';
+                const selectedNames = Array.from(selectedIslands).join(','); // Set 객체를 csv로 변환
+                const url = `${baseUrl}?selected_islands=${encodeURIComponent(selectedNames)}`;
+        
+                fetch(url)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Failed to update selected islands.');
+                        }
+                    })
+                    .then(data => {
+                        console.log(data.message); // 성공 메시지 출력
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        
+            // "시작하기" 버튼 클릭 시 URL로 이동
+            function navigateToStart() {
+                const selectedNames = Array.from(selectedIslands).join(','); // 선택된 섬들을 csv로 변환
+                if (selectedNames.length === 0) {
+                    alert('섬을 선택해 주세요!');
+                    return;
+                }
+                const url = `/update_selected_islands/?selected_islands=${encodeURIComponent(selectedNames)}`;
+                window.location.href = url;
+            }
+        </script>
+        
+        
+
     </div>
-    <script>
-        // 체크 표시 토글 기능
-        function toggleCheck(card) {
-            card.classList.toggle('checked');
-        }
-    </script>
+    
 </body>
 </html>

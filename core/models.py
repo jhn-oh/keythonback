@@ -4,6 +4,7 @@ from django.db import models
 class Islands(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
+    is_selected = models.BooleanField(default=False)  # 사용자가 선택한 섬인지 여부
     is_completed = models.BooleanField(default=False)  # 섬의 전역 상태로 완료 여부 관리
 
     def __str__(self):
