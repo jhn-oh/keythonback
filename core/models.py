@@ -26,7 +26,7 @@ class SubGoals(models.Model):
     def __str__(self):
         return self.name
 
-# 인증 글 모델
+# 인증 글 모델s
 class Articles(models.Model):
     subgoal = models.ForeignKey(SubGoals, on_delete=models.CASCADE, related_name="articles")
     writer = models.ForeignKey(Users, on_delete=models.CASCADE, related_name="articles", default=0)
