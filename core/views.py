@@ -234,39 +234,20 @@ def update_selected_islands(request):
 def home(request):
     user = Users.objects.get(username="akaraka")
     dream = user.dream
-    island_info = Islands.objects.filter(is_selected=True)
-    island_no = 7 #No of islands (TBD)
-    left_values = [99, 121, 222, 173, 136, 76]
-    top_start = 147
-    top_increment = 147
-    image_patterns = [
-        "images/islands/island 1-1.png", 
-        "images/islands/island 2-1.png", 
-        "images/islands/island 3-1.png", 
-        "images/islands/island 4-1.png", 
-        "images/islands/island 5-1.png", 
-        "images/islands/island 6-1.png",
-        "images/islands/island 2-1.png", 
-        "images/islands/island 2-6.png",
-        "images/islands/island 3-6.png"
-    ]
-
-    # Generate coordinates and images
-    final_coordinates = []
-    variation_cycle = len(image_patterns)  # Cycle to restart image variations
-    for i in range(island_no):
-        left = left_values[i % len(left_values)]
-        top = top_start + (i * top_increment)
-        base_image = image_patterns[i % len(image_patterns)]
-        variation_suffix = f"-{(i // variation_cycle) + 1}"
-        image = base_image.replace(".png", f"{variation_suffix}.png")
-        final_coordinates.append({"left": left, "top": top, "image": image})
-
-    island_locations = json.dumps(final_coordinates, indent=4, ensure_ascii=False)
+    islands = Islands.objects.filter(is_selected=True)[:10] 
     
-    # 마지막 점의 위치
-    last_island_top = final_coordinates[-1]['top']
-    return render(request, 'home.html', {"islands": island_locations, "island_info": island_info, "dream": dream, "last_island_top": last_island_top})
+    return render(request, 'home.html', {
+        "dream": dream,
+        "island1": islands[0].name,
+        "island2": islands[1].name,
+        "island3": islands[2].name,
+        "island4": islands[3].name,
+        "island5": islands[4].name,
+        "island6": islands[5].name,
+        "island7": islands[6].name,
+        "island8": islands[7].name,
+        "island9": islands[8].name,
+        "island10": islands[9].name })
 
     #return render(request, 'home.html', {"dream": dream, 'islands': islands})
 
