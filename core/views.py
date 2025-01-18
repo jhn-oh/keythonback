@@ -232,3 +232,7 @@ def update_selected_islands(request):
 
 def home(request):
     return JsonResponse({'message': 'HOME...'}, status=400)
+
+def islandmap(request, island_name):
+    island = get_object_or_404(Islands, name=island_name)
+    return render(request, 'islandmap.html', {'island': island.name})

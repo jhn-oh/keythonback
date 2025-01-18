@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자료구조 아일랜드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .phone-container {
+            width: 100%;
+            height: 90vh;
+            max-width: calc(100vh * 9/19.5);  /* iPhone 16 ratio */
+            max-height: calc(100vw * 19.5/9);
+            position: relative;
+            background-color: #2c3e50;
+        }
+
+        #backgroundImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1; /* 배경이 맨 뒤에 위치하도록 설정 */
+            filter: blur(8px); /* 블러 효과 추가 */
+        }
+
+        #mapImage {
+    width: 70%;  /* 70% 크기로 조정 */
+    height: auto;
+    object-fit: cover;
+    position: absolute;
+    top: 50%;  /* 화면 중앙 위치 */
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 중앙에 정확히 정렬 */
+    z-index: 2; /* 지도 이미지가 배경보다 위에 위치 */
+}
+
+        #shipImage {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            width: 60%;  /* 화면의 80% 크기 */
+            max-width: 500px; /* 최대 크기 제한 */
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+        .message-top{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000;  /* 글자 색상 검정색으로 변경 */
+    font-size: 1.5rem;  /* 글자 크기 */
+    font-weight: bolder;  /* 글자 두께를 더 두껍게 설정 */
+    z-index: 3; /* 이미지보다 위에 위치하도록 설정 */
+}
+ .message-bottom {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000;  /* 글자 색상 검정색으로 변경 */
+    font-size: 1.1rem;  /* 글자 크기 */
+    font-weight: bolder;  /* 글자 두께를 더 두껍게 설정 */
+    z-index: 3; /* 이미지보다 위에 위치하도록 설정 */
+}
+
+.message-top {
+    top: 30%; /* 화면 상단에 위치 */
+}
+
+.message-bottom {
+    bottom: 31%; /* 화면 하단에 위치 */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <!-- 배경 이미지 추가 -->
+        <img id="backgroundImage" src="./images/image 20.png" alt="배경 이미지">
+        <img id="mapImage" src="./images/image 35.png" alt="배경 이미지">
+        <img id="shipImage" src="./images/лодка3 1.png" alt="배 이미지">
+        <div class="message-top">축하합니다</div>
+        <div class="message-bottom">개발자가 되셨습니다.</div>
+
+    </div>
+</body>
+</html>

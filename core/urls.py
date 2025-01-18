@@ -24,6 +24,7 @@ urlpatterns = [
     path('<str:island_name>/select_episodes/', views.select_episodes_view, name='select_episodes'),
     path('update_selected_islands/', views.update_selected_islands, name='update_selected_islands'),
     path('home/', views.home, name='home'),  # 홈 화면 URL 추가
+    path('islandmap/<str:island_name>', views.islandmap, name='islandmap'),  # 섬 지도 화면 URL 추가
     # path('<str:island_name>/select_episodes/', views.select_episodes_view, name='select_episodes'), <a href="/{{ island}}/{{ episode}}/articles" class="card"> 형식으로...
 
 ]
