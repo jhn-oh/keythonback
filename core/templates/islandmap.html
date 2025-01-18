@@ -83,6 +83,21 @@
     z-index: 5;  /* 제목보다 아래, 배경보다 위 */
     cursor: pointer;  /* 마우스를 올리면 클릭 가능하게 변경 */
 }
+.loading {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      display: none; /* 초기에는 숨김 */
+    }
+
+    /* 항해 중 텍스트 스타일 */
+    .loading-text {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px; /* 로딩 이미지 아래에 위치 */
+      display: none; /* 초기에는 숨김 */
+    }
 
 
         @media (max-width: 428px) {
@@ -103,6 +118,15 @@
 </head>
 <body>
     <div class="wrapper">
+        <!-- 로딩 GIF를 표시할 img 태그 -->
+        <div>
+            <img class="loading" id="loading" src="{% static 'images/loading.gif' %}" alt="로딩 중">
+        
+            <!-- 항해 중 텍스트 -->
+            <div class="loading-text" id="loadingText">항해 중...</div>0
+                
+        </div>
+    
         <img id="mapImage" src="{% static 'images/background/bg_map.png' %}" alt="배경 이미지">
         <div class="title-container">
             <h1 class="main-title">{{ island}} 아일랜드</h1>
@@ -116,6 +140,22 @@
             const currentURL = window.location.href;
             const newURL = currentURL + "/select_episodes";
             window.location.href = newURL;
+        });
+        window.addEventListener('load', function() {
+            const loadingElement = document.getElementById('loading');
+            const loadingTextElement = document.getElementById('loadingText');
+            const contentElement = document.getElementById('content');
+            
+            // 로딩 중일 때 보이게 하기
+            loadingElement.style.display = 'block';
+            loadingTextElement.style.display = 'block'; // '항해 중...' 텍스트 보이게 하기
+
+            // 페이지 로딩이 끝나면 로딩 GIF를 숨기고 실제 콘텐츠를 보여주기
+            setTimeout(function() {
+                loadingElement.style.display = 'none'; // 로딩 GIF 숨기기
+                loadingTextElement.style.display = 'none'; // '항해 중...' 텍스트 숨기기
+                contentElement.style.display = 'block'; // 실제 콘텐츠 보이기
+            }, 3000); // 3초 후에 로딩 숨기기 (페이지 로딩 후 3초 동안 표시)
         });
     </script>
     
