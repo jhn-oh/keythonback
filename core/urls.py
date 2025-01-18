@@ -29,5 +29,5 @@ urlpatterns = [
     path('<str:island_name>/<str:episode_name>/write', views.writediary, name='writediary'),
     path('onepiece', views.onepiece, name='onepiece'),  # 원피스 화면 URL 추가
     path('congratulations/<str:island_name>', views.congratulations, name='congratulations'),  # 축하 화면 URL 추가
-    
+    path('<str:island_name>/<str:episode_name>/write_article', views.write_article, name='write_article'),
 ]

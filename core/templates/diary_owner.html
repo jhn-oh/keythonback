@@ -16,7 +16,7 @@
     border-radius: 10px; /* 모서리 둥글게 */
     padding: 20px; /* 내부 여백 */
     background-color: #fff; /* 카드 배경색 */
-    max-width: 75%; /* 카드 최대 너비 */
+    width: 75%; /* 카드 최대 너비 */
     margin: 20px auto; /* 가운데 정렬 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 살짝 그림자 */
     font-family: 'Pretendard', sans-serif; /* 프리텐다드 폰트 */
@@ -211,6 +211,7 @@ line-height: normal;
         {% empty %}
             <p>등록된 에피소드가 없습니다.</p>
         {% endfor %}
+        <br><br><br>
 
         <div>
             <!-- 글쓰기 버튼 -->
@@ -244,7 +245,7 @@ line-height: normal;
         }
 
         function goToMapPage() {
-            window.location.href = "map.html";
+            window.location.href = "/home";
         }
     </script>
 </body>

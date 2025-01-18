@@ -267,6 +267,9 @@ def congratulations(request, island_name):
     dream = user.dream
     return render(request, 'congratulations.html', {"dream": dream, 'island_name': island_name})
 
+from django.shortcuts import render, get_object_or_404
+from .models import Users, Islands, SubGoals, Articles
+
 def mydiary(request, island_name, episode_name):
     # 사용자 가져오기
     user = get_object_or_404(Users, username="akaraka")
@@ -274,14 +277,17 @@ def mydiary(request, island_name, episode_name):
     subgoal = get_object_or_404(SubGoals, island=island, name=episode_name)
     # 해당 소목표와 관련된 모든 글 가져오기
     articles = Articles.objects.filter(subgoal=subgoal, writer=user)
+    total_articles = articles.count()
     
     # 템플릿 렌더링
     return render(request, 'diary_owner.html', {
         'island': island,
         'subgoal': subgoal,
         'articles': articles,
-        'username': user.username
+        'username': user.username,
+        'total_articles': total_articles
     })
+
 
 def writediary(request, island_name, episode_name):
     # 사용자 가져오기
@@ -298,3 +304,29 @@ def writediary(request, island_name, episode_name):
         'articles': articles,
         'username': user.username
     })
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+
+def write_article(request, island_name, episode_name):
+    if request.method == 'POST':
+        user = get_object_or_404(Users, username="akaraka")
+        island = get_object_or_404(Islands, name=island_name)
+        subgoal = get_object_or_404(SubGoals, island=island, name=episode_name)
+
+        article_text = request.POST.get('article')
+        image = request.FILES.get('image')
+
+        # Article 생성 및 저장
+        article = Articles.objects.create(
+            subgoal=subgoal,
+            writer=user,
+            article=article_text,
+            image=image
+        )
+        article.save()
+
+        # 메시지 추가
+        messages.success(request, "글 작성이 완료되었습니다")
+
+        return redirect('mydiary', island_name=island.name, episode_name=subgoal.name)
