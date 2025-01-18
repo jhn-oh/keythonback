@@ -28,4 +28,5 @@ urlpatterns = [
     path('<str:island_name>/<str:episode_name>/articles', views.mydiary, name='mydiary'),  #<a href="/{{ island}}/{{ episode}}/articles" class="card"> 형식으로...
     path('onepiece', views.onepiece, name='onepiece'),  # 원피스 화면 URL 추가
     path('congratulations/<str:island_name>', views.congratulations, name='congratulations'),  # 축하 화면 URL 추가
+    
 ]

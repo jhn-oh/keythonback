@@ -201,4 +201,22 @@
         
     </body>
     </head>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const islandTexts = document.querySelectorAll('.island_text');
+    
+            islandTexts.forEach(textElement => {
+                textElement.addEventListener('click', function () {
+                    const islandText = this.textContent.trim();
+                    if (islandText) {
+                        const url = `http://127.0.0.1:8000/island/${islandText}`;
+                        window.location.href = url;
+                    } else {
+                        alert('Island text not found!');
+                    }
+                });
+            });
+        });
+    </script>
+    
 </html>
