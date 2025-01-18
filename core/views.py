@@ -246,3 +246,18 @@ def congratulations(request, island_name):
     user = Users.objects.get(username="akaraka")
     dream = user.dream
     return render(request, 'congratulations.html', {"dream": dream, 'island_name': island_name})
+
+def mydiary(request, island_name, episode_name):
+    # 사용자 가져오기
+    user = get_object_or_404(Users, username="akaraka")
+    island = get_object_or_404(Islands, name=island_name)
+    subgoal = get_object_or_404(SubGoals, island=island, name=episode_name)
+    # 해당 소목표와 관련된 모든 글 가져오기
+    articles = Articles.objects.filter(subgoal=subgoal, writer=user)
+    
+    # 템플릿 렌더링
+    return render(request, 'diary_owner.html', {
+        'island': island,
+        'subgoal': subgoal,
+        'articles': articles,
+    })
