@@ -39,7 +39,7 @@
         }
 
         #write {
-            width: 200px; /* 너비 줄이기 */
+            width: 300px; /* 너비 줄이기 */
             height: 36px; /* 높이 줄이기 */
             border-radius: 67px;
             border: 1px solid #E9E9E9;
@@ -51,7 +51,7 @@
         }
 
         #enter {
-            width: 200px; /* 너비 줄이기 */
+            width: 300px; /* 너비 줄이기 */
             height: 36px; /* 높이 줄이기 */
             border-radius: 67px;
             background: #CCA26B;
@@ -79,7 +79,7 @@
             <!-- 데이터를 제출할 form -->
             <form action="/save_dream/" method="post">
                 {% csrf_token %}
-                <input id="write" name="dream" type="text" placeholder="답을 입력하세요" required>
+                <input id="write" name="dream" type="text" placeholder="답을 입력하세요" required> <br/><br>
                 <button id="enter" type="submit">확인</button>
             </form>
         </div>

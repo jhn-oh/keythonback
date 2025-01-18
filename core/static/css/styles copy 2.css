@@ -147,16 +147,7 @@ footer {
     }
 
     .wrapper {
-        width: 100%;
-        max-width: 393px; /* 모바일 기준 */
-        min-height: 100vh;
-        background-color: #fff;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 자연스러운 그림자 */
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        margin: 20px auto; /* 중앙 정렬 및 상단 여백 추가 */
-        border-radius: 12px; /* 부드러운 테두리 추가 */
+        margin: 40px auto;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
     }
 }

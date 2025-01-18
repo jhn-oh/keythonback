@@ -160,10 +160,15 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from .models import *
 
 def welcome_view(request):
     return render(request, 'welcome.html')
 
+def select_islands_view(request):
+    user = Users.objects.get(username="akaraka")
+    dream = user.dream
+    return render(request, 'selectislands.html', {"dream": dream})
 
 @method_decorator(csrf_exempt, name='dispatch')
 class SaveDreamView(APIView):

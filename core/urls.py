@@ -14,9 +14,11 @@ urlpatterns = [
     #path('subgoals/<int:pk>/', SubGoalDetailView.as_view(), name='subgoal-detail'),
 
     # Articles
+    path('', views.welcome_view, name='welcome'),
     path('subgoals/<int:subgoal_id>/articles/', ArticleListView.as_view(), name='article-list'),
     path('articles/<str:filename>/', ServeArticleImageView.as_view(), name='serve_article_image'),
     path('welcome', views.welcome_view, name='welcome'),
     path("api/update_dream/", UserDreamUpdateView.as_view(), name="update_dream"),
     path('save_dream/', SaveDreamView.as_view(), name='save_dream'),
+    path('selectislands/', views.select_islands_view, name='select_islands'),
 ]
