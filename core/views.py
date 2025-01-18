@@ -280,4 +280,21 @@ def mydiary(request, island_name, episode_name):
         'island': island,
         'subgoal': subgoal,
         'articles': articles,
+        'username': user.username
+    })
+
+def writediary(request, island_name, episode_name):
+    # 사용자 가져오기
+    user = get_object_or_404(Users, username="akaraka")
+    island = get_object_or_404(Islands, name=island_name)
+    subgoal = get_object_or_404(SubGoals, island=island, name=episode_name)
+    # 해당 소목표와 관련된 모든 글 가져오기
+    articles = Articles.objects.filter(subgoal=subgoal, writer=user)
+    
+    # 템플릿 렌더링
+    return render(request, 'write_diary_owner.html', {
+        'island': island,
+        'subgoal': subgoal,
+        'articles': articles,
+        'username': user.username
     })

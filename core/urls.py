@@ -26,6 +26,7 @@ urlpatterns = [
     path('home/', views.home, name='home'),  # 홈 화면 URL 추가
     path('island/<str:island_name>', views.islandmap, name='islandmap'),  # 섬 지도 화면 URL 추가
     path('<str:island_name>/<str:episode_name>/articles', views.mydiary, name='mydiary'),  #<a href="/{{ island}}/{{ episode}}/articles" class="card"> 형식으로...
+    path('<str:island_name>/<str:episode_name>/write', views.writediary, name='writediary'),
     path('onepiece', views.onepiece, name='onepiece'),  # 원피스 화면 URL 추가
     path('congratulations/<str:island_name>', views.congratulations, name='congratulations'),  # 축하 화면 URL 추가
     

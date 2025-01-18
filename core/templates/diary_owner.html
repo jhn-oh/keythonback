@@ -65,67 +65,187 @@
     margin-right: 5px;
 }
 
+.card2 {
+    font-size: 16px;
+    color: #ffffff; /* 중간 회색으로 수정 */
+    margin-right: 5px; }
+
+
+.icon-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #d4b19d; /* 연갈색 아이콘 색상 */
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-btn:hover {
+            color: #b59a7d; /* 시퍼런 연갈색으로 변경 */
+        }
+
+        .icon-btn i {
+            margin-right: 5px;
+        }
+
+        .write-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 10px; /* 글쓰기 버튼 위치 */
+            width: 50px; /* 버튼 크기 줄이기 */
+            height: 50px; /* 버튼 크기 줄이기 */
+            border-radius: 50%;
+            background-color: #d4b19d;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px; /* 글자 크기도 줄이기 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .write-btn:hover {
+            background-color: #b59a7d; /* 시퍼런 연갈색으로 변경 */
+        }
+        .p .h1 {
+            text-align: center;
+            justify-content: center;
+            justify-self: start;
+        }
+        
+        .map-btn {
+            position: absolute;
+            bottom: 30px;
+            left: 10px; /* 지도 버튼 위치 */
+            width: 50px; /* 버튼 크기 */
+            height: 50px; /* 버튼 크기 */
+            border-radius: 50%;
+            background-color: #d4b19d;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px; /* 글자 크기 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .title_container {
+            text-align: center;
+            justify-content: center;
+    
+        }
+        .map-btn:hover {
+            background-color: #b59a7d; /* 시퍼런 연갈색으로 변경 */
+        }
+        .centered-container {
+            display: flex;
+            justify-content: center; /* 가로 가운데 정렬 */
+            align-items: center; /* 세로 가운데 정렬 */
+            height: 100vh; /* 화면 전체 높이 */
+            width: 100vw; /* 화면 전체 너비 */
+            margin: 0;
+            background-color: #f0f0f0; /* 배경색 */
+        }
+
+        /* 자식 div 스타일 */
+       
+        .title {
+            padding-top: 20px; /* 상단 패딩 추가 */
+            font-size: 24px;
+            color: #000;
+text-align: center;
+font-family: Pretendard;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+        }
+
+        .separator {
+            width: 60%;
+            border-top: 2px solid #d4b19d;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+
+        .episode {
+            text-align: center;
+            color: #000;}
+
     </style>
 </head>
 <body>
+    
     <div class="wrapper">
-        
-       
-            <div class="title-container">
-            <p class="sub-title">에피소드 선택</p>
-            <h1 class="main-title">{{ username}}의 마을</h1>
-            
-            </div>
-            {% for article in articles %}
-                <div class="card">
-                    <h2>N번째 인증</h2>
-                    <div class="date">{{ article.uploaddate}}</div>
-                    <div class="content">
-                        {{ article.article }}
-                    </div>
-                    <div class="icons">
-                        <span>
-                            <i class="fa fa-heart"></i> 15
-                        </span>
-                        <span>
-                            <i class="fa fa-comment"></i> 1
-                        </span>
-                    </div>
+        <br><br>
+        <div class="title">{{island}} 아일랜드</div>
+        <div class="separator"></div>
+        <div class="episode">{{username}}의 에피소드</div>
+        <br><br>
+        {% for article in articles %}
+            <div class="card">
+                <h2>{{ forloop.counter }}번째 인증</h2>
+                <div class="date">{{ article.uploaddate}}</div>
+                <div class="content">
+                    {{ article.article }}
                 </div>
-            {% empty %}
-                <p>등록된 에피소드가 없습니다.</p>
-            {% endfor %}
-                
-                {% for article in articles %}
-                    <a class="card">
-                        <h2>N번째 인증</h2>
-                        <p>{{ article.article }}</p>
-                        {{ article.uploaddate}}
-
-                    </a>
-                {% empty %}
-                    <p>등록된 에피소드가 없습니다.</p>
-                {% endfor %}
-            
+                {% if article.image %}
+                    <div class="image-container">
+                        <img src="{{ article.image.url }}" alt="관련 이미지" style="max-width: 100%; border-radius: 10px; margin-top: 15px;">
+                    </div>
+                {% endif %}
+                <div class="icons">
+                    <span>
+                        <i class="fa fa-heart"></i> 15
+                    </span>
+                    <span>
+                        <i class="fa fa-comment"></i> 1
+                    </span>
+                </div>
             </div>
+        {% empty %}
+            <p>등록된 에피소드가 없습니다.</p>
+        {% endfor %}
+
+        <div>
+            <!-- 글쓰기 버튼 -->
+            <button class="write-btn" onclick="goToWritePage()">
+                <i class="fas fa-pencil-alt"></i>
+            </button>
+
+            <!-- 지도 버튼 -->
+            <button class="map-btn" onclick="goToMapPage()">
+                <i class="fas fa-map-marker-alt"></i>
+            </button>
         </div>
-        
-        
     </div>
     <script>
-        document.getElementById("shipImage").addEventListener("click", function() {
+        document.getElementById("shipImage")?.addEventListener("click", function() {
             const currentURL = window.location.href;
             const newURL = currentURL + "/select_episodes";
             window.location.href = newURL;
         });
+
         const mapVideo = document.getElementById("mapVideo");
 
         // 동영상 재생이 끝났을 때 동작
-        mapVideo.addEventListener("ended", () => {
+        mapVideo?.addEventListener("ended", () => {
             mapVideo.pause(); // 동영상 멈춤
             mapVideo.currentTime = mapVideo.duration; // 재생 위치를 끝으로 설정
-    });
+        });
+
+        function goToWritePage() {
+            window.location.href = "write";
+        }
+
+        function goToMapPage() {
+            window.location.href = "map.html";
+        }
     </script>
-    
 </body>
 </html>

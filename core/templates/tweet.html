@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Feed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #ccc; /* 회색 배경 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 393px; /* 모바일 기준 */
+            min-height: 92vh;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 자연스러운 그림자 */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+
+        .title {
+            padding-top: 20px; /* 상단 패딩 추가 */
+
+            color: #000;
+text-align: center;
+font-family: Pretendard;
+font-size: 15px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+        }
+
+        .separator {
+            width: 60%;
+            border-top: 2px solid #d4b19d;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+
+        .episode {
+            text-align: center;
+            color: #000;
+
+font-family: Pretendard;
+font-size: 25px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+
+
+        }
+
+        .feed {
+            max-width: 300px; /* 피드 영역의 최대 너비를 300px로 좁힘 */
+            width: 100%;
+            margin: 5px auto;
+            padding: 20px;
+            overflow-y: scroll; /* 세로 스크롤 활성화 */
+            height: 80vh; /* 세로 높이 설정 */
+            position: absolute;
+            top: 120px; /* 제목과 구분선 아래로 내리기 */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white; /* 피드 배경색 */
+        }
+
+        /* 스크롤바 숨기기 */
+        .feed::-webkit-scrollbar {
+            width: 0; /* 스크롤바의 너비를 0으로 설정 */
+            height: 0; /* 수평 스크롤바의 높이를 0으로 설정 */
+        }
+
+        .tweet {
+            background-color: #ffffff; /* 글 배경을 하얀색으로 유지 */
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .order {
+            color: #657786;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .timestamp {
+            color: #657786;
+            font-size: 12px;
+        }
+
+        .tweet-text {
+            margin-top: 10px;
+            font-size: 12px; /* 원하는 글자 크기 */
+            color: #d4b19d; /* 원하는 글자 색상 */
+            font-family: Pretendard, sans-serif; /* 글꼴 설정 */
+            font-style: normal; /* 글꼴 스타일 설정 */
+            font-weight: 500; /* 글꼴 두께 설정 */
+            line-height: 150%; /* 줄 간격 설정 */
+            word-wrap: break-word; /* 긴 단어 자동 줄바꿈 */
+            white-space: pre-wrap; /* 긴 텍스트 자동 줄바꿈 */
+        }
+
+        .tweet-image {
+            margin: 20px auto;
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .tweet-footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between; /* 버튼을 양끝으로 배치 */
+            padding-top: 10px;
+            border-top: 2px solid #d4b19d; /* 연갈색 상단 선 추가 */
+        }
+
+        .icon-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #d4b19d; /* 연갈색 아이콘 색상 */
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-btn:hover {
+            color: #b59a7d; /* 시퍼런 연갈색으로 변경 */
+        }
+
+        .icon-btn i {
+            margin-right: 5px;
+        }
+
+        .write-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 10px; /* 글쓰기 버튼 위치 */
+            width: 50px; /* 버튼 크기 줄이기 */
+            height: 50px; /* 버튼 크기 줄이기 */
+            border-radius: 50%;
+            background-color: #d4b19d;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px; /* 글자 크기도 줄이기 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .write-btn:hover {
+            background-color: #b59a7d; /* 시퍼런 연갈색으로 변경 */
+        }
+
+        .map-btn {
+            position: absolute;
+            bottom: 30px;
+            right: calc(100% - 60px); /* 글쓰기 버튼과 대칭되게 배치 */
+            width: 50px; /* 버튼 크기 */
+            height: 50px; /* 버튼 크기 */
+            border-radius: 50%;
+            background-color: #d4b19d;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px; /* 글자 크기 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .map-btn:hover {
+            background-color: #b59a7d; /* 시퍼런 연갈색으로 변경 */
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- 제목 추가 -->
+        <div class="title">자료구조 아일랜드</div>
+        <div class="separator"></div>
+        <div class="episode">000의 에피소드</div>
+
+        <div class="container">
+            <div class="feed">
+                <!-- 트윗 요소가 JavaScript로 동적으로 추가됩니다. -->
+            </div>
+
+            <!-- 글쓰기 버튼 -->
+            <button class="write-btn" onclick="goToWritePage()">
+                <i class="fas fa-pencil-alt"></i>
+            </button>
+
+            <!-- 지도 버튼 -->
+            <button class="map-btn" onclick="goToMapPage()">
+                <i class="fas fa-map-marker-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const tweets = [
+            {
+                timestamp: "3분 전",
+                tweetText: "이것은 첫 번째 트윗입니다! 이것은 첫 번째 트윗입니다! 이것은 첫 번째 트윗입니다! 이것은 첫 번째 트윗입니다!",
+                imageUrl: "https://via.placeholder.com/600x400"
+            },
+            {
+                timestamp: "5분 전",
+                tweetText: "트위터에서 두 번째 트윗! 트위터에서 두 번째 트윗! 트위터에서 두 번째 트윗! 트위터에서 두 번째 트윗!",
+                imageUrl: null
+            },
+            {
+                timestamp: "10분 전",
+                tweetText: "세 번째 트윗! 최신 내용입니다. 세 번째 트윗! 최신 내용입니다.",
+                imageUrl: "https://via.placeholder.com/600x400"
+            },
+            {
+                timestamp: "15분 전",
+                tweetText: "네 번째 트윗! 다른 내용입니다. 네 번째 트윗! 다른 내용입니다.",
+                imageUrl: "https://via.placeholder.com/600x400"
+            },
+            {
+                timestamp: "20분 전",
+                tweetText: "다섯 번째 트윗! 계속되는 트윗. 다섯 번째 트윗! 계속되는 트윗.",
+                imageUrl: null
+            },
+            {
+                timestamp: "25분 전",
+                tweetText: "여섯 번째 트윗! 여섯 번째 트윗! 여섯 번째 트윗! 여섯 번째 트윗!",
+                imageUrl: "https://via.placeholder.com/600x400"
+            },
+            {
+                timestamp: "30분 전",
+                tweetText: "일곱 번째 트윗! 일곱 번째 트윗! 일곱 번째 트윗! 일곱 번째 트윗!",
+                imageUrl: "https://via.placeholder.com/600x400"
+            },
+            {
+                timestamp: "35분 전",
+                tweetText: "여덧 번째 트윗! 여덧 번째 트윗! 여덧 번째 트윗! 여덧 번째 트윗!",
+                imageUrl: null
+            },
+            {
+                timestamp: "40분 전",
+                tweetText: "아홉 번째 트윗! 아홉 번째 트윗! 아홉 번째 트윗! 아홉 번째 트윗!",
+                imageUrl: "https://via.placeholder.com/600x400"
+            },
+            {
+                timestamp: "45분 전",
+                tweetText: "열 번째 트윗! 열 번째 트윗! 열 번째 트윗! 열 번째 트윗!",
+                imageUrl: null
+            }
+        ];
+
+        const feed = document.querySelector(".feed");
+
+        const renderTweets = () => {
+            feed.innerHTML = ""; // 기존 피드를 초기화
+            tweets.forEach((tweet, index) => {
+                const tweetElement = document.createElement("div");
+                tweetElement.classList.add("tweet");
+
+                const imageHTML = tweet.imageUrl
+                    ? `<img src="${tweet.imageUrl}" alt="Tweet Image" class="tweet-image">`
+                    : "";
+
+                tweetElement.innerHTML = `
+                    <div class="tweet-header">
+                        <span class="order">#${index + 1}</span>
+                        <span class="timestamp">${tweet.timestamp}</span>
+                    </div>
+                    <p class="tweet-text">${tweet.tweetText}</p>
+                    ${imageHTML}
+                    <div class="tweet-footer">
+                        <button class="icon-btn like-btn">
+                            <img src="images/like-icon.svg" alt="Like" class="icon-img"> 
+                        </button>
+                        <button class="icon-btn reply-btn">
+                            <img src="images/reply-icon.svg" alt="Reply" class="icon-img"> 
+                        </button>
+                    </div>
+                `;
+
+                feed.appendChild(tweetElement);
+            });
+        };
+
+        const goToWritePage = () => {
+            window.location.href = "write.html"; // 글쓰기 페이지로 이동
+        };
+
+        const goToMapPage = () => {
+            window.location.href = "map.html"; // 지도 페이지로 이동
+        };
+
+        // 초기
+        // 초기 트윗 렌더링
+        renderTweets();
+    </script>
+</body>
+</html>
