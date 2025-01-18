@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="home_figma.css">  
+        <style>
+            @font-face {
+                font-family: 'Pretendard';
+                src: url("{% static 'fonts/Pretendard-Regular.woff2' %}") format('woff2'),
+                     url("{% static 'fonts/Pretendard-Regular.woff' %}") format('woff');
+            }
+            body {
+                font-family: 'Pretendard', Arial, sans-serif;
+            }
+            .background {
+                width: 387px; height: 1374px; left: 2px; position: absolute;
+            }
+            #ship {
+                width: 81px; height: 81px; left: 156px; top: 17px; position: absolute; color: white;
+            }
+            .basic_island {
+                width: 74px; height: 61px; position: absolute; color: #B2FFDE;
+            }
+            .islands {
+                cursor: pointer; transition: transform 0.5s ease-in-out;
+            }
+            .islands:hover {
+                transform: scale(1.5);
+            }
+            .island_text {
+                position: absolute; text-align: center; color: black; font-size: 10px;
+                font-weight: 700; white-space: nowrap;
+                width: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div style="width: 393px; height: 1367px; position: relative; background: white;">
+                <img class="background" src="{% static 'images/background/bg_home.png' %}">
+                <img id="ship" src="{% static 'images/ship2.png' %}">
+                
+                <div id="island-container"></div>
+                <!-- 최종 섬 -->
+                <img id="final-island" 
+                     class="islands" 
+                     style="width: 216px; height: 216px; position: absolute; color:#FFC881;" 
+                     src="{% static 'images/final_island.png' %}" />
+                <div id="final-text" style="width: 87px; height: 39px; position: absolute;">
+                    <div style="width: 87px; height: 39px; left: 0px; top: 0px; position: absolute; background: linear-gradient(180deg, rgba(234.63, 142.98, 22.97, 0.79) 0%, rgba(255, 159.85, 159.85, 0.79) 100%); border-radius: 67px; backdrop-filter: blur(18.40px)"></div>
+                    <div style="width: 87px; left: 0px; top: 8px; position: absolute; text-align: center; color: white; font-size: 19px; font-family: Arial; font-weight: 700; word-wrap: break-word;">{{ dream }}</div>
+                </div>
+            </div>
+        </div>
+        <script>
+            const islandsData = {{ islands|safe }};
+            const container = document.getElementById('island-container');
+
+            // 섬 렌더링
+            islandsData.forEach((island, index) => {
+                const img = document.createElement('img');
+                img.className = 'basic_island islands';
+                img.src = `{% static '' %}${island.image}`;
+                img.style.left = `${island.left}px`;
+                img.style.top = `${island.top}px`;
+                img.style.position = 'absolute';
+                img.onclick = () => { window.location.href = 'island.html'; };
+
+                const text = document.createElement('div');
+                text.className = 'island_text';
+                text.style.left = `${island.left - 15}px`;
+                text.style.top = `${island.top + 70}px`;
+                text.innerText = `섬 ${index + 1}`;
+
+                const group = document.createElement('div');
+                group.className = 'island-group';
+                group.appendChild(img);
+                group.appendChild(text);
+
+                container.appendChild(group);
+            });
+
+            // 최종 섬 위치 설정
+            const finalIsland = document.getElementById('final-island');
+            finalIsland.style.left = '84px';
+            finalIsland.style.top = `${parseInt(islandsData[islandsData.length - 1].top, 10) + 100}px`;
+            // 최종 섬 텍스트 위치 설정
+            finalText.style.left = '152px';
+            finalText.style.top = `${parseInt(islandsData[islandsData.length - 1].top, 10) + 180}px`;
+        </script>
+    </body>
+</html>
